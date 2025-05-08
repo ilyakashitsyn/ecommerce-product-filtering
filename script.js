@@ -116,5 +116,33 @@ function createProductElement(product) {
 <p class="text-xl">${product.name}</p>
 <strong>$${product.price.toLocaleString()}</strong>`;
 
+  productEl.querySelector('.status').addEventListener('click', addToCart);
+
   return productEl;
+}
+
+// Toggle add/remove from cart
+function addToCart(e) {
+  const statusEl = e.target;
+
+  if (statusEl.classList.contains('added')) {
+    // Remove from cart
+    statusEl.classList.remove('added');
+    statusEl.innerText = 'Add To Cart';
+    statusEl.classList.remove('bg-red-600');
+    statusEl.classList.add('bg-gray-800');
+
+    cartItemCount--;
+  } else {
+    // Add to cart
+    statusEl.classList.add('added');
+    statusEl.innerText = 'Remove From Cart';
+    statusEl.classList.remove('bg-gray-800');
+    statusEl.classList.add('bg-red-600');
+
+    cartItemCount++;
+  }
+
+  // Update cart item count
+  cartCount.innerText = cartItemCount.toString();
 }
